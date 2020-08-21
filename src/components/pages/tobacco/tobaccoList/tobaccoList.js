@@ -40,4 +40,4 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
     fetchTobacco: (id) => fetchTobaccoByCompany(id),
 };
-export const tobaccoList = connect(mapStateToProps, mapActionsToProps)(_tobaccoList);
+export const TobaccoList = connect(mapStateToProps, mapActionsToProps)(_tobaccoList);

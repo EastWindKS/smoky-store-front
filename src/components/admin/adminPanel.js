@@ -78,4 +78,4 @@ const _adminPanel = () => {
     );
 };
 
-export const adminPanel = connect()(_adminPanel);
+export const AdminPanel = connect()(_adminPanel);

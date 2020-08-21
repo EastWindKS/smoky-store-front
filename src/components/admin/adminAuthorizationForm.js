@@ -103,4 +103,4 @@ const mapStateToProps = state => ({
     loading: state.filterReducer.loading,
 });
 
-export const adminAuthorizationForm = connect(mapStateToProps, mapActionToProps)(_adminAuthorizationForm);
+export const AdminAuthorizationForm = connect(mapStateToProps, mapActionToProps)(_adminAuthorizationForm);

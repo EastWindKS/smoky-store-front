@@ -21,4 +21,4 @@ export const TobaccoCompanyItem = (props) => {
             </Card>
         </Grid>
     )
-}
+};

@@ -84,4 +84,4 @@ const mapActionsToProps = {
     saveChecksStatus: (key, value) => savingTobaccoFilter(key, value),
     fetchAllTobaccoCompaniesWithFilter: (soft, middle, rare) => fetchAllTobaccoCompaniesWithFilter(soft, middle, rare),
 };
-export const tobaccoCompaniesList = connect(mapStateToProps, mapActionsToProps)(_tobaccoCompaniesList);
+export const TobaccoCompaniesList = connect(mapStateToProps, mapActionsToProps)(_tobaccoCompaniesList);
