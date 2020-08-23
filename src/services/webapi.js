@@ -17,7 +17,8 @@ export const getAccessAdminFromApi = (login, password) => {
     return axios.get(BASE_URL + `admlogin?login=${login}&password=${password}`)
 };
 export const postCompanyData = (sendItem) => {
-    return axios.post(BASE_URL + "companies", {
-        body: sendItem
-    });
+    return axios.post(BASE_URL + "companies", sendItem);
+};
+export const deleteCompany = (id) => {
+    return axios.delete(BASE_URL + `companies/${id}`);
 };

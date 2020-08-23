@@ -13,7 +13,8 @@ export const ACTION_TYPES = {
     ACCESS_ADMIN_LOGIN: "ACCESS_ADMIN_LOGIN",
     ACCESS_ADMIN_SUCCESS: "ACCESS_ADMIN_SUCCESS",
     ACCESS_ADMIN_ERROR: "ACCESS_ADMIN_ERROR",
-    POST_COMPANY_DATA: "POST_COMPANY_DATA"
+    POST_COMPANY_DATA: "POST_COMPANY_DATA",
+    COLLECT_ADD_COMPANY_DATA:"COLLECT_ADD_COMPANY_DATA"
 };
 const getAccessAdmin = () => {
     return {type: ACTION_TYPES.ACCESS_ADMIN_LOGIN}
@@ -72,6 +73,13 @@ export const fetchAllTobaccoCompaniesWithFilter = (soft, middle, rare) => dispat
             value: response.data
         })
     }).catch(error => console.log(error));
+};
+export const savingAddCompanyData = (key, value) => dispatch => {
+    dispatch({
+        type: ACTION_TYPES.COLLECT_ADD_COMPANY_DATA,
+        key: key,
+        value: value
+    })
 };
 export const savingTobaccoFilter = (key, value) => dispatch => {
     dispatch({

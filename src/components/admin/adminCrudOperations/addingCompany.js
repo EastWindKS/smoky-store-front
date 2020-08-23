@@ -1,9 +1,24 @@
 import React, {useState} from "react";
 import {useStyles} from "./styles";
-import {FormControl, Select, InputLabel, MenuItem, Input, TextField, Button} from "@material-ui/core";
+import {savingAddCompanyData} from "../../../store/actions"
+import {
+    FormControl,
+    Select,
+    InputLabel,
+    MenuItem,
+    Input,
+    TextField,
+    Button,
+    ListItem,
+    Checkbox,
+    ListItemIcon,
+    ListItemText,
+    List,
+    ListSubheader
+} from "@material-ui/core";
+import {connect} from "react-redux";
 import {postCompanyData} from "../../../services/webapi";
 
-const strArray = ["Soft", "Middle", "Rare"];
 const MenuProps = {
     PaperProps: {
         style: {
@@ -12,25 +27,56 @@ const MenuProps = {
         },
     },
 };
-const listAdding = ["Adding tobacco company", "Adding coal company"];
-export const AddingCompany = () => {
-    const classes = useStyles();
+const listAdding = ["Add tobacco company", "Add coal company"];
+const _addCompany = ({addCompanyData, collectDataForSend}) => {
     const [addingValue, setAddingValue] = useState("");
-    const [nameField, setNameField] = useState("");
-    const [imgUrl, setImgUrl] = useState("");
+    const classes = useStyles();
     const handleNameFiledChange = (event) => {
-        setNameField(event.target.value)
+        collectDataForSend(event.target.id, event.target.value)
     };
     const handleImgUrlChange = (event) => {
-        setImgUrl(event.target.value);
+        collectDataForSend(event.target.id, event.target.value);
     };
     const handleActionChange = (event) => {
         setAddingValue(event.target.value)
     };
-    const handleSendButton = () => {
-        let newData = Object.assign({}, {CompanyName: nameField}, {ImgUrl: imgUrl});
-        postCompanyData(newData);
+    const getStrArraySend = (data) => {
+        const strArray = [];
+        Object.entries(data).map(item => {
+            if (item[1] === true) {
+                strArray.push(item[0])
+            }
+        });
+        return strArray;
     };
+    const sendData = () => {
+        const strArray = getStrArraySend(addCompanyData);
+        const sendObject = {
+            CompanyName: addCompanyData.CompanyName,
+            ImgUrl: addCompanyData.ImgUrl,
+            Strengths: strArray,
+        };
+        console.log(sendObject);
+        postCompanyData(sendObject);
+    };
+
+    const strBoxComponent = <List subheader={<ListSubheader className={classes.subHeader}>Strs:</ListSubheader>}
+                                  className={classes.checkBoxList}>
+        {Object.entries(addCompanyData).map(item => {
+            if (item[0] !== "CompanyName" && item[0] !== "ImgUrl") {
+                return (
+                    <ListItem id={item} button dense onClick={() => collectDataForSend(item[0], !item[1])}>
+                        <ListItemIcon>
+                            <Checkbox disableRipple inputProps={{"aria-labelledby": item[0]}} checked={item[1]}/>
+                        </ListItemIcon>
+                        <ListItemText id={item[0]} primary={item[0]}/>
+                    </ListItem>
+                )
+            }
+        })};
+    </List>;
+
+
     return (
         <div className={classes.root}>
             <FormControl className={classes.formControl}>
@@ -52,16 +98,24 @@ export const AddingCompany = () => {
                 <TextField
                     variant={"outlined"}
                     label={"Company Name"}
-                    id={"companyName"}
+                    id={"CompanyName"}
                     onChange={handleNameFiledChange}/>
                 <TextField
 
                     variant={"outlined"}
                     label={"img url string"}
-                    id={"imgUrl"}
+                    id={"ImgUrl"}
                     onChange={handleImgUrlChange}/>
             </form>
-            <Button color={"secondary"} variant={"contained"} onClick={handleSendButton}>Add</Button>
+            {addingValue === listAdding[0] && strBoxComponent}
+            <Button color={"secondary"} variant={"contained"} onClick={sendData}>Add</Button>
         </div>
     )
 };
+const mapStateToProps = state => ({
+    addCompanyData: state.addCompanyDataReducer
+});
+const mapActionsToProps = {
+    collectDataForSend: (key, value) => savingAddCompanyData(key, value),
+};
+export const AddingCompany = connect(mapStateToProps, mapActionsToProps)(_addCompany);

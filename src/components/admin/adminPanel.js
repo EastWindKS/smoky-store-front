@@ -68,7 +68,7 @@ const _adminPanel = () => {
             </Button>
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <Button variant={"contained"} color={"secondary"}>
+                <Button variant={"contained"} color={"secondary"} component={Link} to={"/admin-panel/deleteCompany"}>
                     Delete company
                 </Button> <Button variant={"contained"} color={"secondary"}>
                 Delete product

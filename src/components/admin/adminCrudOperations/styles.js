@@ -22,5 +22,11 @@ export const useStyles = makeStyles((theme) => ({
         },
         display: "flex",
         flexDirection: "column"
+    },
+    checkBoxList: {
+        maxWidth: 200
+    },
+    subHeader : {
+        marginLeft: 10
     }
 }));

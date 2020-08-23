@@ -1,5 +1,12 @@
 import {ACTION_TYPES} from "./actions";
 
+const collectAddCompanyData = {
+    Soft: false,
+    Middle: false,
+    Rare: false,
+    CompanyName: "",
+    ImgUrl: ""
+};
 const filterList = {
     Soft: false,
     Middle: false,
@@ -13,6 +20,17 @@ const tobaccoList = {
     tobaccoItemsList: [],
     tobaccoCurrentItem: {},
     postCompany: {}
+};
+
+export const addCompanyDataReducer = (state = collectAddCompanyData, action) => {
+    switch (action.type) {
+        case    ACTION_TYPES.COLLECT_ADD_COMPANY_DATA:
+            return {
+                ...state, [action.key]: action.value
+            };
+        default:
+            return  state;
+    }
 };
 
 export const fetchReducer = (state = tobaccoList, action) => {
