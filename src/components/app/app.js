@@ -11,6 +11,7 @@ import {AdminAuthorizationForm} from "../admin/adminAuthorizationForm";
 import {AdminPanel} from "../admin/adminPanel";
 import {AddingCompany} from "../admin/adminCrudOperations/addingCompany";
 import {DeleteCompany} from "../admin/adminCrudOperations/deleteCompany";
+import {UpdateCompany} from "../admin/adminCrudOperations/updateCompany";
 
 export const App = () => {
     return (
@@ -25,6 +26,7 @@ export const App = () => {
                 <Route exact path={"/admin-panel"} component={AdminPanel}/>
                 <Route exact path={"/admin-panel/addingCompany"} component={AddingCompany}/>
                 <Route exact path={"/admin-panel/deleteCompany"} component={DeleteCompany}/>
+                <Route exact path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
             </BrowserRouter>
         </Provider>
     );

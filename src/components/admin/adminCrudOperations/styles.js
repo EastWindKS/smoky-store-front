@@ -5,6 +5,9 @@ export const useStyles = makeStyles((theme) => ({
         marginTop: 100,
         marginLeft: 50
     },
+    textField: {
+        marginTop: 30
+    },
     formControl: {
         margin: theme.spacing(2),
         paddingTop: 15,

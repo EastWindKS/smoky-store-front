@@ -22,3 +22,6 @@ export const postCompanyData = (sendItem) => {
 export const deleteCompany = (id) => {
     return axios.delete(BASE_URL + `companies/${id}`);
 };
+export const updateCompany = (id, updateData) => {
+    return axios.put(BASE_URL + `companies/${id}`,updateData).catch(e=>console.log(e))
+};

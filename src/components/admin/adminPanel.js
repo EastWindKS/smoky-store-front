@@ -56,12 +56,13 @@ const _adminPanel = () => {
             <TabPanel value={value} index={0}>
                 <Button variant={"contained"} color={"secondary"} component={Link} to={"/admin-panel/addingCompany"}>
                     Adding company
-                </Button> <Button variant={"contained"} color={"secondary"} component={Link} to={"/admin-panel/addingProduct"}>
+                </Button> <Button variant={"contained"} color={"secondary"} component={Link}
+                                  to={"/admin-panel/addingProduct"}>
                 Adding product
             </Button>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Button variant={"contained"} color={"secondary"}>
+                <Button variant={"contained"} color={"secondary"} component={Link} to={"/admin-panel/updateCompany"}>
                     Update company
                 </Button> <Button variant={"contained"} color={"secondary"}>
                 Update product
