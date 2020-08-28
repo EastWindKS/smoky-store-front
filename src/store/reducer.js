@@ -19,7 +19,8 @@ const tobaccoList = {
     tobaccoCompaniesList: [],
     tobaccoItemsList: [],
     tobaccoCurrentItem: {},
-    postCompany: {}
+    postCompany: {},
+    badgeCount: 0,
 };
 
 export const addCompanyDataReducer = (state = collectAddCompanyData, action) => {
@@ -29,7 +30,7 @@ export const addCompanyDataReducer = (state = collectAddCompanyData, action) => 
                 ...state, [action.key]: action.value
             };
         default:
-            return  state;
+            return state;
     }
 };
 
@@ -51,7 +52,10 @@ export const fetchReducer = (state = tobaccoList, action) => {
             return {
                 ...state, tobaccoCurrentItem: {...action.value}
             };
-
+        case ACTION_TYPES.COUNTING_BADGE:
+            return {
+                ...state, badgeCount: state.badgeCount + 1
+            };
         default :
             return state;
     }

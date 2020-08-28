@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useStyles} from "./styles";
 import {connect} from "react-redux";
-import {fetchTobaccoItemById} from "../../../../store/actions";
-import {Grid, Typography, CardMedia, Card, CardContent, Backdrop, CircularProgress} from "@material-ui/core";
+import {countBadge, fetchTobaccoItemById} from "../../../../store/actions";
+import {Grid, Typography, CardMedia, Card, CardContent, Backdrop, CircularProgress, Button} from "@material-ui/core";
 
-const _currentTobaccoItem = ({currentItemInfo, getCurrentItem}) => {
+const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge}) => {
     const classes = useStyles();
     useEffect(() => {
         getCurrentItem(sessionStorage.getItem("currentItemId"));
@@ -27,20 +27,26 @@ const _currentTobaccoItem = ({currentItemInfo, getCurrentItem}) => {
                     </Typography>
                 </CardContent>
             </Card>
+            <Button
+                variant={"contained"}
+                color={"secondary"}
+                onClick={() => countingBadge()}>Add to bracket</Button>
         </Grid>
         <Grid item xs={1}/>
     </Grid>
     return (
         <div className={classes.root}>
-            {Object.keys(currentItemInfo).length === 0  && load}
+            {Object.keys(currentItemInfo).length === 0 && load}
             {Object.keys(currentItemInfo).length > 0 && content}
         </div>
     )
 };
 const mapActionsToProps = {
-    getCurrentItem: (id) => fetchTobaccoItemById(id),
+    getCurrentItem: id => fetchTobaccoItemById(id),
+    countingBadge: () => countBadge(),
 };
 const mapStateToProps = state => ({
     currentItemInfo: state.fetchReducer.tobaccoCurrentItem,
 });
+
 export const CurrentTobaccoItem = connect(mapStateToProps, mapActionsToProps)(_currentTobaccoItem);

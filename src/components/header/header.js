@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
-import {AppBar, IconButton, Toolbar, Typography, Button, InputBase, Menu, MenuItem, Badge} from "@material-ui/core";
+import {AppBar, IconButton, Toolbar, Button, InputBase, Menu, MenuItem, Badge} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import {useStyles} from "./styles";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {Link} from "react-router-dom"
+import {connect} from "react-redux";
 
-export const Header = () => {
+const _header = ({badgeCount}) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [badgeCount, setBadgeCount] = useState(1)
     const [dropMenu, setDropMenu] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
@@ -142,4 +142,8 @@ export const Header = () => {
             </Menu>
         </div>
     );
-}
+};
+const mapStoreToProps = state => ({
+    badgeCount: state.fetchReducer.badgeCount
+});
+export const Header = connect(mapStoreToProps)(_header);

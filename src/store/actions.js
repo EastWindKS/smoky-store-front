@@ -14,7 +14,8 @@ export const ACTION_TYPES = {
     ACCESS_ADMIN_SUCCESS: "ACCESS_ADMIN_SUCCESS",
     ACCESS_ADMIN_ERROR: "ACCESS_ADMIN_ERROR",
     POST_COMPANY_DATA: "POST_COMPANY_DATA",
-    COLLECT_ADD_COMPANY_DATA:"COLLECT_ADD_COMPANY_DATA"
+    COLLECT_ADD_COMPANY_DATA: "COLLECT_ADD_COMPANY_DATA",
+    COUNTING_BADGE: "COUNTING_BADGE"
 };
 const getAccessAdmin = () => {
     return {type: ACTION_TYPES.ACCESS_ADMIN_LOGIN}
@@ -88,3 +89,10 @@ export const savingTobaccoFilter = (key, value) => dispatch => {
         value: value
     })
 };
+export const countBadge = () => dispatch => {
+    dispatch(
+        {
+            type: ACTION_TYPES.COUNTING_BADGE,
+        }
+    )
+}
