@@ -1,15 +1,25 @@
 import React, {useEffect} from "react";
 import {useStyles} from "./styles";
 import {connect} from "react-redux";
-import {countBadge, fetchTobaccoItemById} from "../../../../store/actions";
+import {addToShopCartItem, countBadge, fetchTobaccoItemById} from "../../../../store/actions";
 import {Grid, Typography, CardMedia, Card, CardContent, Backdrop, CircularProgress, Button} from "@material-ui/core";
 
-const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge}) => {
+const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge, addItemToCart, addedItemToCart}) => {
     const classes = useStyles();
     useEffect(() => {
         getCurrentItem(sessionStorage.getItem("currentItemId"));
         console.log(currentItemInfo)
     }, []);
+    const handleAddButton = () => {
+        countingBadge();
+        addItemToCart({
+            name: currentItemInfo.flavor,
+            imgUrl: currentItemInfo.imgUrl,
+        });
+    };
+    useEffect(() => {
+        console.log(addedItemToCart)
+    }, [addedItemToCart]);
     const load = <Backdrop open={true} className={classes.backdrop}>
         <CircularProgress color={"secondary"}/>
     </Backdrop>;
@@ -30,7 +40,7 @@ const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge}) =
             <Button
                 variant={"contained"}
                 color={"secondary"}
-                onClick={() => countingBadge()}>Add to bracket</Button>
+                onClick={handleAddButton}>Add to bracket</Button>
         </Grid>
         <Grid item xs={1}/>
     </Grid>
@@ -44,9 +54,11 @@ const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge}) =
 const mapActionsToProps = {
     getCurrentItem: id => fetchTobaccoItemById(id),
     countingBadge: () => countBadge(),
+    addItemToCart: item => addToShopCartItem(item),
 };
 const mapStateToProps = state => ({
     currentItemInfo: state.fetchReducer.tobaccoCurrentItem,
+    addedItemToCart: state.cardReducer.cartList
 });
 
 export const CurrentTobaccoItem = connect(mapStateToProps, mapActionsToProps)(_currentTobaccoItem);

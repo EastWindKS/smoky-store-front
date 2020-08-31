@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import {filterReducer, fetchReducer, addCompanyDataReducer, authReducer} from "./reducer";
+import {filterReducer, fetchReducer, addCompanyDataReducer, authReducer, cartReducer} from "./reducer";
 import {setAuthorizationToken} from "../services/webapi";
 import {logOutUser, setCurrentUser} from "./actions";
 import jwt from "jsonwebtoken"
@@ -10,13 +10,14 @@ const reducers = combineReducers({
     fetchReducer: fetchReducer,
     filterReducer: filterReducer,
     addCompanyDataReducer: addCompanyDataReducer,
-    authReducer: authReducer
+    authReducer: authReducer,
+    cardReducer: cartReducer
 });
 
 export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 if (localStorage.jwtToken) {
     setAuthorizationToken(localStorage.jwtToken);
-    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)))
+    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 
     let expireTime = jwt.decode(localStorage.jwtToken);
     let currentTime = Date.now() / 1000;

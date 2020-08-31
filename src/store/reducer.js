@@ -25,6 +25,20 @@ const tobaccoList = {
     postCompany: {},
     badgeCount: 0,
 };
+const shopCartList = {
+    cartList: []
+};
+export const cartReducer = (state = shopCartList, action) => {
+    switch (action.type) {
+        case ACTION_TYPES.ADD_ITEM_TO_CART:
+            return {
+              ...state,   cartList: {...action.value}
+            };
+        default:
+            return state;
+    }
+};
+
 export const authReducer = (state = authInitial, action) => {
     switch (action.type) {
         case ACTION_TYPES.ACCESS_ADMIN_LOGIN:

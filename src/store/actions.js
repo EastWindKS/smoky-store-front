@@ -19,6 +19,7 @@ export const ACTION_TYPES = {
     POST_COMPANY_DATA: "POST_COMPANY_DATA",
     COLLECT_ADD_COMPANY_DATA: "COLLECT_ADD_COMPANY_DATA",
     COUNTING_BADGE: "COUNTING_BADGE",
+    ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART"
 
 };
 const getAccessAdmin = () => {
@@ -30,6 +31,12 @@ const errorAccessAdmin = () => {
     }
 };
 
+export const addToShopCartItem = (item) => dispatch => {
+    dispatch({
+        type: ACTION_TYPES.ADD_ITEM_TO_CART,
+        value: item
+    });
+};
 export const setCurrentUser = (user) => {
     return {
         type: ACTION_TYPES.SET_CURRENT_USER,
