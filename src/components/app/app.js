@@ -12,6 +12,7 @@ import {AdminPanel} from "../admin/adminPanel";
 import {AddingCompany} from "../admin/adminCrudOperations/addingCompany";
 import {DeleteCompany} from "../admin/adminCrudOperations/deleteCompany";
 import {UpdateCompany} from "../admin/adminCrudOperations/updateCompany";
+import {PrivateRouter} from "../../services/PrivateRoute";
 
 export const App = () => {
     return (
@@ -23,10 +24,10 @@ export const App = () => {
                 <Route exact path={"/tobacco"} component={TobaccoList}/>
                 <Route exact path={"/tobacco/:name/:id"} component={CurrentTobaccoItem}/>
                 <Route exact path={"/admin-authorization"} component={AdminAuthorizationForm}/>
-                <Route exact path={"/admin-panel"} component={AdminPanel} loginPath={"/admin-authorization"}/>
-                <Route exact path={"/admin-panel/addingCompany"} component={AddingCompany}/>
-                <Route exact path={"/admin-panel/deleteCompany"} component={DeleteCompany}/>
-                <Route exact path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
+                <PrivateRouter exact path={"/admin-panel"} component={AdminPanel}/>
+                <PrivateRouter exact path={"/admin-panel/addingCompany"} component={AddingCompany}/>
+                <PrivateRouter exact path={"/admin-panel/deleteCompany"} component={DeleteCompany}/>
+                <PrivateRouter exact path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
             </BrowserRouter>
         </Provider>
     );
