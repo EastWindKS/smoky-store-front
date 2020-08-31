@@ -5,6 +5,7 @@ import {
 } from "../services/webapi";
 import jwt from "jsonwebtoken"
 
+
 export const ACTION_TYPES = {
     SAVING_TOBACCO_FILTER: "SAVING_TOBACCO_COMPANIES_FILTER",
     FETCH_ALL_TOBACCO_COMPANIES: "FETCH_ALL_TOBACCO_COMPANIES",
@@ -12,6 +13,7 @@ export const ACTION_TYPES = {
     FETCH_TOBACCO_BY_COMPANY_NAME: "FETCH_TOBACCO_BY_COMPANY_NAME",
     FETCH_CURRENT_TOBACCO_ITEM: "FETCH_CURRENT_TOBACCO_ITEM",
     ACCESS_ADMIN_LOGIN: "ACCESS_ADMIN_LOGIN",
+    LOG_OUT_USER: "LOG_OUT_USER",
     ACCESS_ADMIN_LOGIN_ERROR: "ACCESS_ADMIN_LOGIN_ERROR",
     SET_CURRENT_USER: "SET_CURRENT_USER",
     POST_COMPANY_DATA: "POST_COMPANY_DATA",
@@ -22,7 +24,7 @@ export const ACTION_TYPES = {
 const getAccessAdmin = () => {
     return {type: ACTION_TYPES.ACCESS_ADMIN_LOGIN}
 };
-const errorAccessAdmim = ()=>{
+const errorAccessAdmin = () => {
     return {
         type: ACTION_TYPES.ACCESS_ADMIN_LOGIN_ERROR
     }
@@ -34,16 +36,22 @@ export const setCurrentUser = (user) => {
         user
     }
 };
+export const logOutUser = () => {
+    return {
+        type: ACTION_TYPES.LOG_OUT_USER
+    }
+}
 export const accessAdmin = (data) => {
     return (dispatch) => {
         dispatch(getAccessAdmin());
         getAccessAdminFromApi(data)
             .then(response => {
                 const token = response.data.access_token;
+                const decodeToken = jwt.decode(token);
                 localStorage.setItem("jwtToken", token);
                 setAuthorizationToken(token);
-                dispatch(setCurrentUser(jwt.decode(token)))
-            }).catch(error =>dispatch(errorAccessAdmim()));
+                dispatch(setCurrentUser(decodeToken))
+            }).catch(error => dispatch(errorAccessAdmin()));
     }
 };
 export const fetchTobaccoItemById = (id) => dispatch => {

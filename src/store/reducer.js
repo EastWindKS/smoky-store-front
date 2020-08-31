@@ -35,6 +35,10 @@ export const authReducer = (state = authInitial, action) => {
             return {
                 ...state, loading: false
             };
+        case ACTION_TYPES.LOG_OUT_USER:
+            return {
+                ...state, isAuth: false
+            };
         case ACTION_TYPES.SET_CURRENT_USER :
             return {
                 ...state,

@@ -12,7 +12,6 @@ import {AdminPanel} from "../admin/adminPanel";
 import {AddingCompany} from "../admin/adminCrudOperations/addingCompany";
 import {DeleteCompany} from "../admin/adminCrudOperations/deleteCompany";
 import {UpdateCompany} from "../admin/adminCrudOperations/updateCompany";
-import {PrivateRoute} from "jwt-auth-react";
 
 export const App = () => {
     return (
@@ -24,10 +23,10 @@ export const App = () => {
                 <Route exact path={"/tobacco"} component={TobaccoList}/>
                 <Route exact path={"/tobacco/:name/:id"} component={CurrentTobaccoItem}/>
                 <Route exact path={"/admin-authorization"} component={AdminAuthorizationForm}/>
-                <PrivateRoute exact path={"/admin-panel"} component={AdminPanel}/>
-                <PrivateRoute exact path={"/admin-panel/addingCompany"} component={AddingCompany}/>
-                <PrivateRoute exact path={"/admin-panel/deleteCompany"} component={DeleteCompany}/>
-                <PrivateRoute exact path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
+                <Route exact path={"/admin-panel"} component={AdminPanel} loginPath={"/admin-authorization"}/>
+                <Route exact path={"/admin-panel/addingCompany"} component={AddingCompany}/>
+                <Route exact path={"/admin-panel/deleteCompany"} component={DeleteCompany}/>
+                <Route exact path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
             </BrowserRouter>
         </Provider>
     );

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
+import {useHistory} from "react-router-dom"
 import {accessAdmin} from "../../store/actions";
 import {useStyles} from "./styles";
 import {Container, Typography, Button, TextField, CssBaseline, Avatar, Snackbar} from "@material-ui/core";
@@ -9,7 +10,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 const Alert = (props) => {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
-const _adminAuthorizationForm = ({access, accessAdmin, loading}) => {
+const _adminAuthorizationForm = ({access, accessAdmin, loading, history}) => {
     const [open, setOpen] = useState(false);
     const [validation, setValidtaion] = useState(false);
     const classes = useStyles();
@@ -22,9 +23,14 @@ const _adminAuthorizationForm = ({access, accessAdmin, loading}) => {
     }, [loading]);
     const handleLogin = async (event) => {
         await event.preventDefault();
-        await accessAdmin({login:login,password:password});
+        await accessAdmin({login: login, password: password});
         setTimeout(() => setValidtaion(true), 70);
     };
+    useEffect(() => {
+        if (access) {
+            setTimeout(() => history.push("/admin-panel"), 1000)
+        }
+    }, [access]);
     const handleOnChangeLogin = (event) => {
         setLogin(event.currentTarget.value);
     };

@@ -38,14 +38,15 @@ function a11yProps(index) {
 }
 
 
-const _adminPanel = () => {
+const _adminPanel = ({auth}) => {
+    console.log(auth)
     const classes = useStyles();
     const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    return (
-        <div className={classes.root}>
+    const component =
+        auth && <div className={classes.root}>
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Adding" {...a11yProps(0)} />
@@ -76,7 +77,13 @@ const _adminPanel = () => {
             </Button>
             </TabPanel>
         </div>
-    );
+    return(
+        <>
+        {component}
+        </>
+    )
 };
-
-export const AdminPanel = connect()(_adminPanel);
+const mapStateToProps = state => ({
+    auth: state.authReducer.isAuth
+});
+export const AdminPanel = connect(mapStateToProps, null)(_adminPanel);

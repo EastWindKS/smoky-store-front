@@ -3,9 +3,8 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {filterReducer, fetchReducer, addCompanyDataReducer, authReducer} from "./reducer";
 import {setAuthorizationToken} from "../services/webapi";
-import {setCurrentUser} from "./actions";
+import {logOutUser, setCurrentUser} from "./actions";
 import jwt from "jsonwebtoken"
-
 
 const reducers = combineReducers({
     fetchReducer: fetchReducer,
@@ -18,5 +17,15 @@ export const store = createStore(reducers, composeWithDevTools(applyMiddleware(t
 if (localStorage.jwtToken) {
     setAuthorizationToken(localStorage.jwtToken);
     store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)))
-}
 
+    let expireTime = jwt.decode(localStorage.jwtToken);
+    let currentTime = Date.now() / 1000;
+    if (currentTime > expireTime.exp) {
+        localStorage.removeItem("jwtToken");
+        store.dispatch(setCurrentUser({}));
+        store.dispatch(logOutUser());
+        console.log("expire")
+    } else {
+        console.log("not yet")
+    }
+}
