@@ -9,38 +9,32 @@ import {connect} from "react-redux";
 
 const _header = ({badgeCount}) => {
     const classes = useStyles();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [dropMenu, setDropMenu] = useState(null);
-
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
-
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
     };
     const handleOpenMenu = (event) => {
         setDropMenu(event.currentTarget);
-    }
+    };
     const handleCloseMenu = () => {
         setDropMenu(null);
-    }
-
+    };
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
-
     const menuId = 'primary-search-account-menu';
-
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu

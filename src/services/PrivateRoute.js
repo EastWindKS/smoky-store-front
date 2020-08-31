@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 import jwt from "jsonwebtoken";
 import {Route, Redirect} from "react-router-dom"
 
-export const PrivateRouter = ({component, path}) => {
+export const PrivateRouter = ({component, path, exact}) => {
     const auth = useSelector(state => state.authReducer.isAuth);
     const [isAuthenticated, setIsAuthenticated] = useState(auth);
     useEffect(() => {
@@ -23,6 +23,6 @@ export const PrivateRouter = ({component, path}) => {
     }, [auth]);
 
     return (
-       isAuthenticated ? <Route exact path={path} component={component} />: <Redirect to={"/admin-authorization"}/>
+       isAuthenticated ? <Route exact path={path} component={component} />: <Redirect  to={"/admin-authorization"}/>
     )
 };

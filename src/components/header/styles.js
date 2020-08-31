@@ -7,8 +7,8 @@ export const useStyles = makeStyles((theme) => ({
     growing: {
         flexGrow: 1,
     },
-    appBar:{
-      backgroundColor:"#252B2F",
+    appBar: {
+        backgroundColor: "#252B2F",
     },
     menuButton: {
         marginRight: theme.spacing(2),

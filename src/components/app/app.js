@@ -24,10 +24,18 @@ export const App = () => {
                 <Route exact path={"/tobacco"} component={TobaccoList}/>
                 <Route exact path={"/tobacco/:name/:id"} component={CurrentTobaccoItem}/>
                 <Route exact path={"/admin-authorization"} component={AdminAuthorizationForm}/>
-                <PrivateRouter exact path={"/admin-panel"} component={AdminPanel}/>
-                <PrivateRouter exact path={"/admin-panel/addingCompany"} component={AddingCompany}/>
-                <PrivateRouter exact path={"/admin-panel/deleteCompany"} component={DeleteCompany}/>
-                <PrivateRouter exact path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
+                <Route exact path={"/admin-panel"}>
+                    <PrivateRouter path={"/admin-panel"} component={AdminPanel}/>
+                </Route>
+                <Route exact path={"/admin-panel/addingCompany"}>
+                    <PrivateRouter path={"/admin-panel/addingCompany"} component={AddingCompany}/>
+                </Route>
+                <Route exact path={"/admin-panel/deleteCompany"}>
+                    <PrivateRouter path={"/admin-panel/deleteCompany"} component={DeleteCompany}/>
+                </Route>
+                <Route exact path={"/admin-panel/updateCompany"}>
+                    <PrivateRouter path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
+                </Route>
             </BrowserRouter>
         </Provider>
     );
