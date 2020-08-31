@@ -13,8 +13,8 @@ export const fetchTobaccoByCompanyFromApi = (id) => {
 export const fetchCurrentTobaccoItemFromApi = (id) => {
     return axios.get(BASE_URL + `tproduct?id=${id}`)
 };
-export const getAccessAdminFromApi = (login, password) => {
-    return axios.get(BASE_URL + `admlogin?login=${login}&password=${password}`)
+export const getAccessAdminFromApi = (sendData) => {
+    return axios.post(BASE_URL + "login", sendData)
 };
 export const postCompanyData = (sendItem) => {
     return axios.post(BASE_URL + "companies", sendItem);
@@ -23,5 +23,12 @@ export const deleteCompany = (id) => {
     return axios.delete(BASE_URL + `companies/${id}`);
 };
 export const updateCompany = (id, updateData) => {
-    return axios.put(BASE_URL + `companies/${id}`,updateData).catch(e=>console.log(e))
+    return axios.put(BASE_URL + `companies/${id}`, updateData).catch(e => console.log(e))
+};
+export const setAuthorizationToken = token => {
+    if (token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common["Authorization"]
+    }
 };

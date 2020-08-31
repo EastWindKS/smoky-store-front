@@ -22,7 +22,7 @@ const _adminAuthorizationForm = ({access, accessAdmin, loading}) => {
     }, [loading]);
     const handleLogin = async (event) => {
         await event.preventDefault();
-        await accessAdmin(login, password);
+        await accessAdmin({login:login,password:password});
         setTimeout(() => setValidtaion(true), 70);
     };
     const handleOnChangeLogin = (event) => {
@@ -96,11 +96,11 @@ const _adminAuthorizationForm = ({access, accessAdmin, loading}) => {
     )
 };
 const mapActionToProps = {
-    accessAdmin: (login, password) => accessAdmin(login, password)
+    accessAdmin: (data) => accessAdmin(data)
 };
 const mapStateToProps = state => ({
-    access: state.filterReducer.getAccess,
-    loading: state.filterReducer.loading,
+    access: state.authReducer.isAuth,
+    loading: state.authReducer.loading,
 });
 
 export const AdminAuthorizationForm = connect(mapStateToProps, mapActionToProps)(_adminAuthorizationForm);

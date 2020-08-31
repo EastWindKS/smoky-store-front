@@ -1,4 +1,5 @@
 import {ACTION_TYPES} from "./actions";
+import {isEmpty} from "lodash"
 
 const collectAddCompanyData = {
     Soft: false,
@@ -11,9 +12,11 @@ const filterList = {
     Soft: false,
     Middle: false,
     Rare: false,
-    getAccess: false,
-    loading: false,
-    error: false
+};
+const authInitial = {
+    isAuth: false,
+    user: {},
+    loading: false
 };
 const tobaccoList = {
     tobaccoCompaniesList: [],
@@ -22,7 +25,27 @@ const tobaccoList = {
     postCompany: {},
     badgeCount: 0,
 };
-
+export const authReducer = (state = authInitial, action) => {
+    switch (action.type) {
+        case ACTION_TYPES.ACCESS_ADMIN_LOGIN:
+            return {
+                ...state, loading: true
+            };
+        case ACTION_TYPES.ACCESS_ADMIN_LOGIN_ERROR:
+            return {
+                ...state, loading: false
+            };
+        case ACTION_TYPES.SET_CURRENT_USER :
+            return {
+                ...state,
+                isAuth: !isEmpty(action.user),
+                user: action.user,
+                loading: false
+            };
+        default:
+            return state
+    }
+};
 export const addCompanyDataReducer = (state = collectAddCompanyData, action) => {
     switch (action.type) {
         case    ACTION_TYPES.COLLECT_ADD_COMPANY_DATA:
@@ -65,18 +88,6 @@ export const filterReducer = (state = filterList, action) => {
         case ACTION_TYPES.SAVING_TOBACCO_FILTER:
             return {
                 ...state, [action.key]: action.value
-            };
-        case ACTION_TYPES.ACCESS_ADMIN_LOGIN:
-            return {
-                ...state, loading: true
-            };
-        case ACTION_TYPES.ACCESS_ADMIN_SUCCESS :
-            return {
-                ...state, loading: false, getAccess: action.value
-            };
-        case ACTION_TYPES.ACCESS_ADMIN_ERROR:
-            return {
-                ...state, loading: false, error: true
             };
         default:
             return state;

@@ -1,8 +1,9 @@
 import {
     fetchAllTobaccoCompaniesFromApi,
     fetchTobaccoCompaniesByStrFromApi,
-    fetchTobaccoByCompanyFromApi, fetchCurrentTobaccoItemFromApi, getAccessAdminFromApi
+    fetchTobaccoByCompanyFromApi, fetchCurrentTobaccoItemFromApi, getAccessAdminFromApi, setAuthorizationToken
 } from "../services/webapi";
+import jwt from "jsonwebtoken"
 
 export const ACTION_TYPES = {
     SAVING_TOBACCO_FILTER: "SAVING_TOBACCO_COMPANIES_FILTER",
@@ -11,35 +12,38 @@ export const ACTION_TYPES = {
     FETCH_TOBACCO_BY_COMPANY_NAME: "FETCH_TOBACCO_BY_COMPANY_NAME",
     FETCH_CURRENT_TOBACCO_ITEM: "FETCH_CURRENT_TOBACCO_ITEM",
     ACCESS_ADMIN_LOGIN: "ACCESS_ADMIN_LOGIN",
-    ACCESS_ADMIN_SUCCESS: "ACCESS_ADMIN_SUCCESS",
-    ACCESS_ADMIN_ERROR: "ACCESS_ADMIN_ERROR",
+    ACCESS_ADMIN_LOGIN_ERROR: "ACCESS_ADMIN_LOGIN_ERROR",
+    SET_CURRENT_USER: "SET_CURRENT_USER",
     POST_COMPANY_DATA: "POST_COMPANY_DATA",
     COLLECT_ADD_COMPANY_DATA: "COLLECT_ADD_COMPANY_DATA",
-    COUNTING_BADGE: "COUNTING_BADGE"
+    COUNTING_BADGE: "COUNTING_BADGE",
+
 };
 const getAccessAdmin = () => {
     return {type: ACTION_TYPES.ACCESS_ADMIN_LOGIN}
 };
-const getAccessAdminSuccess = (data) => {
+const errorAccessAdmim = ()=>{
     return {
-        type: ACTION_TYPES.ACCESS_ADMIN_SUCCESS,
-        value: data
-    };
-};
-const getAccessAdminError = () => {
-    return {
-        type: ACTION_TYPES.ACCESS_ADMIN_ERROR,
-    };
+        type: ACTION_TYPES.ACCESS_ADMIN_LOGIN_ERROR
+    }
 };
 
-export const accessAdmin = (login, password) => {
+export const setCurrentUser = (user) => {
+    return {
+        type: ACTION_TYPES.SET_CURRENT_USER,
+        user
+    }
+};
+export const accessAdmin = (data) => {
     return (dispatch) => {
         dispatch(getAccessAdmin());
-        getAccessAdminFromApi(login, password)
+        getAccessAdminFromApi(data)
             .then(response => {
-                dispatch(getAccessAdminSuccess(response.data))
-            })
-            .catch(error => dispatch(getAccessAdminError()));
+                const token = response.data.access_token;
+                localStorage.setItem("jwtToken", token);
+                setAuthorizationToken(token);
+                dispatch(setCurrentUser(jwt.decode(token)))
+            }).catch(error =>dispatch(errorAccessAdmim()));
     }
 };
 export const fetchTobaccoItemById = (id) => dispatch => {
