@@ -8,7 +8,7 @@ import {Link} from "react-router-dom"
 import {connect} from "react-redux";
 import {ShopCartContent} from "./shopCartContent";
 
-const _header = ({badgeCount}) => {
+const _header = ({badgeCount, cartList}) => {
     const classes = useStyles();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -16,6 +16,10 @@ const _header = ({badgeCount}) => {
     const [dropMenu, setDropMenu] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    useEffect(() => {
+        console.log(cartList)
+        console.log("changed")
+    }, [cartList]);
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -138,6 +142,7 @@ const _header = ({badgeCount}) => {
     );
 };
 const mapStoreToProps = state => ({
-    badgeCount: state.fetchReducer.badgeCount
+    badgeCount: state.fetchReducer.badgeCount,
+    cartList: state.cartReducer.cartList,
 });
 export const Header = connect(mapStoreToProps)(_header);

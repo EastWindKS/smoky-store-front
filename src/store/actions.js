@@ -19,8 +19,8 @@ export const ACTION_TYPES = {
     POST_COMPANY_DATA: "POST_COMPANY_DATA",
     COLLECT_ADD_COMPANY_DATA: "COLLECT_ADD_COMPANY_DATA",
     COUNTING_BADGE: "COUNTING_BADGE",
-    ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART"
-
+    ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
+    DELETE_ITEM_FROM_CART: "DELETE_ITEM_FROM_CART",
 };
 const getAccessAdmin = () => {
     return {type: ACTION_TYPES.ACCESS_ADMIN_LOGIN}
@@ -31,6 +31,13 @@ const errorAccessAdmin = () => {
     }
 };
 
+export const deleteItemFromShopCart = (index) => dispatch => {
+    dispatch({
+        type: ACTION_TYPES.DELETE_ITEM_FROM_CART,
+        value: index
+    });
+
+};
 export const addToShopCartItem = (item) => dispatch => {
     dispatch({
         type: ACTION_TYPES.ADD_ITEM_TO_CART,
