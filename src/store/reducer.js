@@ -31,9 +31,7 @@ const shopCartList = {
 export const cartReducer = (state = shopCartList, action) => {
     switch (action.type) {
         case ACTION_TYPES.ADD_ITEM_TO_CART:
-            return {
-              ...state,   cartList: {...action.value}
-            };
+            shopCartList.cartList.push(action.value);
         default:
             return state;
     }

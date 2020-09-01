@@ -11,7 +11,7 @@ const reducers = combineReducers({
     filterReducer: filterReducer,
     addCompanyDataReducer: addCompanyDataReducer,
     authReducer: authReducer,
-    cardReducer: cartReducer
+    cartReducer: cartReducer
 });
 
 export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));

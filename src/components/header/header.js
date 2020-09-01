@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppBar, IconButton, Toolbar, Button, InputBase, Menu, MenuItem, Badge} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import {useStyles} from "./styles";
@@ -6,10 +6,11 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {Link} from "react-router-dom"
 import {connect} from "react-redux";
+import {ShopCartContent} from "./shopCartContent";
 
 const _header = ({badgeCount}) => {
     const classes = useStyles();
-
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [dropMenu, setDropMenu] = useState(null);
@@ -63,15 +64,12 @@ const _header = ({badgeCount}) => {
             </MenuItem>
             <MenuItem>
                 <IconButton
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
+                    aria-haspopup="dialog"
                     color="inherit"
                 >
                     <Badge badgeContent={badgeCount} color={"secondary"}>
-                        <AddShoppingCartIcon/>
+                        <AddShoppingCartIcon aria/>
                     </Badge>
-
                 </IconButton>
                 <p>Shopping Cart</p>
             </MenuItem>
@@ -102,7 +100,9 @@ const _header = ({badgeCount}) => {
                     <div className={classes.sectionDesktop}>
                         <IconButton>
                             <Badge badgeContent={badgeCount} color={"secondary"}>
-                                <AddShoppingCartIcon className={classes.colorWhite}/>
+                                <AddShoppingCartIcon className={classes.colorWhite}
+                                                     onClick={() => setDialogOpen(true)}/>
+                                <ShopCartContent dialogClose={() => setDialogOpen(false)} dialogOpen={dialogOpen}/>
                             </Badge>
                         </IconButton>
                     </div>

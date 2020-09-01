@@ -13,13 +13,11 @@ const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge, ad
     const handleAddButton = () => {
         countingBadge();
         addItemToCart({
+            itemId: sessionStorage.getItem("currentItemId"),
             name: currentItemInfo.flavor,
             imgUrl: currentItemInfo.imgUrl,
         });
     };
-    useEffect(() => {
-        console.log(addedItemToCart)
-    }, [addedItemToCart]);
     const load = <Backdrop open={true} className={classes.backdrop}>
         <CircularProgress color={"secondary"}/>
     </Backdrop>;
@@ -58,7 +56,7 @@ const mapActionsToProps = {
 };
 const mapStateToProps = state => ({
     currentItemInfo: state.fetchReducer.tobaccoCurrentItem,
-    addedItemToCart: state.cardReducer.cartList
+    addedItemToCart: state.cartReducer.cartList
 });
 
 export const CurrentTobaccoItem = connect(mapStateToProps, mapActionsToProps)(_currentTobaccoItem);
