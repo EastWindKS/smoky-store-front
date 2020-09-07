@@ -14,12 +14,14 @@ import {DeleteCompany} from "../admin/adminCrudOperations/deleteCompany";
 import {UpdateCompany} from "../admin/adminCrudOperations/updateCompany";
 import {PrivateRouter} from "../../services/PrivateRoute";
 import {OrderList} from "../admin/orderList";
+import {CheckOut} from "../pages/checkout/checkout";
 
 export const App = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
                 <Header/>
+                <Route exact path={"/checkout"} component={CheckOut}/>
                 <Route exact path={"/"} component={MainPage}/>
                 <Route exact path={"/catalog"} component={TobaccoCompaniesList}/>
                 <Route exact path={"/tobacco"} component={TobaccoList}/>

@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import {
+    Button,
     List,
     Avatar,
     ListItem,
@@ -13,10 +15,10 @@ import {connect} from "react-redux";
 import {deleteItemFromShopCart} from "../../store/actions";
 
 const _shopCartContent = ({dialogClose, dialogOpen, productsList, deleteItem}) => {
-    const handleDeleteItem = (index) => {
-         deleteItem(index);
+        const handleDeleteItem = (index) => {
+        deleteItem(index);
     };
-    return (
+       return (
         <Dialog onClose={dialogClose} aria-labelledby="simple-dialog-title" open={dialogOpen}>
             <DialogTitle id="simple-dialog-title">Your shop cart</DialogTitle>
             <List>
@@ -32,6 +34,13 @@ const _shopCartContent = ({dialogClose, dialogOpen, productsList, deleteItem}) =
                     )
                 })}
             </List>
+            <Button
+                variant={"contained"}
+                color={"secondary"}
+                component={Link}
+                to={"/checkout"}
+                onClick={dialogClose}
+                >Checkout</Button>
         </Dialog>
     );
 };
