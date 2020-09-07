@@ -13,6 +13,7 @@ import {AddingCompany} from "../admin/adminCrudOperations/addingCompany";
 import {DeleteCompany} from "../admin/adminCrudOperations/deleteCompany";
 import {UpdateCompany} from "../admin/adminCrudOperations/updateCompany";
 import {PrivateRouter} from "../../services/PrivateRoute";
+import {OrderList} from "../admin/orderList";
 
 export const App = () => {
     return (
@@ -35,6 +36,9 @@ export const App = () => {
                 </Route>
                 <Route exact path={"/admin-panel/updateCompany"}>
                     <PrivateRouter path={"/admin-panel/updateCompany"} component={UpdateCompany}/>
+                </Route>
+                <Route exact path={"/admin-panel/orders"}>
+                    <PrivateRouter path={"/admin-panel/orders"} component={OrderList}/>
                 </Route>
             </BrowserRouter>
         </Provider>

@@ -14,7 +14,7 @@ import {deleteItemFromShopCart} from "../../store/actions";
 
 const _shopCartContent = ({dialogClose, dialogOpen, productsList, deleteItem}) => {
     const handleDeleteItem = (index) => {
-        deleteItem(index);
+         deleteItem(index);
     };
     return (
         <Dialog onClose={dialogClose} aria-labelledby="simple-dialog-title" open={dialogOpen}>
@@ -39,6 +39,6 @@ const mapActionsToProps = {
     deleteItem: index => deleteItemFromShopCart(index),
 };
 const mapStateToProps = store => ({
-    productsList: store.cartReducer.cartList
+    productsList: store.cartReducer
 });
 export const ShopCartContent = connect(mapStateToProps, mapActionsToProps)(_shopCartContent);

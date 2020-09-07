@@ -8,7 +8,6 @@ const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge, ad
     const classes = useStyles();
     useEffect(() => {
         getCurrentItem(sessionStorage.getItem("currentItemId"));
-        console.log(currentItemInfo)
     }, []);
     const handleAddButton = () => {
         countingBadge();
@@ -56,7 +55,7 @@ const mapActionsToProps = {
 };
 const mapStateToProps = state => ({
     currentItemInfo: state.fetchReducer.tobaccoCurrentItem,
-    addedItemToCart: state.cartReducer.cartList
+    addedItemToCart: state.cartReducer,
 });
 
 export const CurrentTobaccoItem = connect(mapStateToProps, mapActionsToProps)(_currentTobaccoItem);

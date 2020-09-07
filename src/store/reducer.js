@@ -25,20 +25,16 @@ const tobaccoList = {
     postCompany: {},
     badgeCount: 0,
 };
-let shopCartList = {
-    cartList: []
-};
+const shopCartList = [];
+
 export const cartReducer = (state = shopCartList, action) => {
     switch (action.type) {
         case ACTION_TYPES.ADD_ITEM_TO_CART:
-            return {
-                ...state, cartList: [...shopCartList.cartList, {...action.value}]
-            };
+            return [...state, action.value];
         case ACTION_TYPES.DELETE_ITEM_FROM_CART :
-            const index = action.value;
-            return {
-                ...state, cartList: [...shopCartList.cartList.slice(index, index + 1)]
-            };
+            const i = action.value;
+            state.splice(i, 1);
+            return [...state];
         default:
             return state;
     }

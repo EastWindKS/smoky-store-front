@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
-import {useHistory} from "react-router-dom"
 import {accessAdmin} from "../../store/actions";
 import {useStyles} from "./styles";
 import {Container, Typography, Button, TextField, CssBaseline, Avatar, Snackbar} from "@material-ui/core";
