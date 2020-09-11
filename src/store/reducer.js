@@ -98,6 +98,10 @@ export const fetchReducer = (state = tobaccoList, action) => {
             return {
                 ...state, badgeCount: state.badgeCount + 1
             };
+        case ACTION_TYPES.DECREMENT_BADGE :
+            return {
+                ...state, badgeCount: state.badgeCount - 1
+            }
         default :
             return state;
     }

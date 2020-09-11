@@ -21,6 +21,7 @@ export const ACTION_TYPES = {
     COUNTING_BADGE: "COUNTING_BADGE",
     ADD_ITEM_TO_CART: "ADD_ITEM_TO_CART",
     DELETE_ITEM_FROM_CART: "DELETE_ITEM_FROM_CART",
+    DECREMENT_BADGE:"DECREMENT_BADGE"
 };
 const getAccessAdmin = () => {
     return {type: ACTION_TYPES.ACCESS_ADMIN_LOGIN}
@@ -119,6 +120,13 @@ export const countBadge = () => dispatch => {
     dispatch(
         {
             type: ACTION_TYPES.COUNTING_BADGE,
+        }
+    )
+}
+export const decrementBadge = () => dispatch => {
+    dispatch(
+        {
+            type: ACTION_TYPES.DECREMENT_BADGE,
         }
     )
 }

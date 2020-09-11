@@ -12,13 +12,14 @@ import {
 } from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import {connect} from "react-redux";
-import {deleteItemFromShopCart} from "../../store/actions";
+import {decrementBadge, deleteItemFromShopCart} from "../../store/actions";
 
-const _shopCartContent = ({dialogClose, dialogOpen, productsList, deleteItem}) => {
-        const handleDeleteItem = (index) => {
+const _shopCartContent = ({dialogClose, dialogOpen, productsList, deleteItem,decrBadge}) => {
+    const handleDeleteItem = (index) => {
         deleteItem(index);
+        decrBadge();
     };
-       return (
+    return (
         <Dialog onClose={dialogClose} aria-labelledby="simple-dialog-title" open={dialogOpen}>
             <DialogTitle id="simple-dialog-title">Your shop cart</DialogTitle>
             <List>
@@ -40,12 +41,13 @@ const _shopCartContent = ({dialogClose, dialogOpen, productsList, deleteItem}) =
                 component={Link}
                 to={"/checkout"}
                 onClick={dialogClose}
-                >Checkout</Button>
+            >Checkout</Button>
         </Dialog>
     );
 };
 const mapActionsToProps = {
     deleteItem: index => deleteItemFromShopCart(index),
+    decrBadge: () => decrementBadge(),
 };
 const mapStateToProps = store => ({
     productsList: store.cartReducer
