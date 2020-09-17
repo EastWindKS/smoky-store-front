@@ -1,11 +1,25 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useStyles} from "./styles";
 import {connect} from "react-redux";
 import {addToShopCartItem, countBadge, fetchTobaccoItemById} from "../../../../store/actions";
-import {Grid, Typography, CardMedia, Card, CardContent, Backdrop, CircularProgress, Button} from "@material-ui/core";
+import {
+    Grid,
+    Typography,
+    CardMedia,
+    Card,
+    CardContent,
+    Backdrop,
+    CircularProgress,
+    Button,
+    TextField,
+    ButtonGroup
+} from "@material-ui/core";
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge, addItemToCart, addedItemToCart}) => {
     const classes = useStyles();
+    const [count, setCount] = useState(0);
     useEffect(() => {
         getCurrentItem(sessionStorage.getItem("currentItemId"));
     }, []);
@@ -34,6 +48,28 @@ const _currentTobaccoItem = ({currentItemInfo, getCurrentItem, countingBadge, ad
                     </Typography>
                 </CardContent>
             </Card>
+            <div>
+                <TextField
+                    value={count}
+                    className={classes.counter}
+                    label={"Count"}
+                    onChange={(event) => setCount(event.currentTarget.value)}/>
+                <ButtonGroup className={classes.grBtns}>
+                    <Button
+                        disabled={count === 0}
+                        aria-label="reduce"
+                        onClick={() => setCount(prevState => --prevState)}
+                    >
+                        <RemoveIcon fontSize="small"/>
+                    </Button>
+                    <Button
+                        aria-label="increase"
+                        onClick={() => setCount(prevState => ++prevState)}
+                    >
+                        <AddIcon fontSize="small"/>
+                    </Button>
+                </ButtonGroup>
+            </div>
             <Button
                 variant={"contained"}
                 color={"secondary"}
